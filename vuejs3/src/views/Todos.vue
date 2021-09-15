@@ -21,7 +21,7 @@
               <button
                 class="px-2 text-red-600"
                 @click="removeTodo(todo)"
-                title="Remove todo"
+                title="Sil"
               >
                 &times;
               </button>
@@ -29,7 +29,7 @@
                 v-if="!todo.done"
                 class="px-2 text-green-600"
                 @click="markAsDone(todo)"
-                title="Mark as done"
+                title="Yapıldı olarak işaretle"
               >
                 &check;
               </button>
@@ -37,7 +37,7 @@
                 v-else
                 class="px-2 text-orange-600"
                 @click="markAsUndone(todo)"
-                title="Mark as undone"
+                title="Yapılacak olarak işaretle"
               >
                 &#8630;
               </button>
