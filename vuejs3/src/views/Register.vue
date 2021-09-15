@@ -5,6 +5,7 @@
 
       <div class="form-floating ">
         <input
+          v-model="user.name"
           type="text"
           class="form-control mb-2"
           placeholder="Ahmet Aydın"
@@ -14,15 +15,17 @@
       </div>
       <div class="form-floating ">
         <input
+          v-model="user.email"
           type="email"
           class="form-control mb-2"
-          placeholder="isim@örnek.com"
+          placeholder="isim@mail.com"
           required
         />
         <label for="floatingInput">E-Posta</label>
       </div>
       <div class="form-floating">
         <input
+          v-model="user.password"
           type="password"
           class="form-control"
           placeholder="Şifre"
@@ -31,25 +34,55 @@
         <label for="floatingPassword">Şifre</label>
       </div>
 
-      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">
+      <button
+        v-on:click.prevent="register"
+        class="w-100 btn btn-lg btn-primary mt-3"
+        type="submit"
+      >
         Kayıt Ol
       </button>
       <div className="w-100 text-center mt-2 mb-4">
-        <router-link to="/login">Hesabım yok</router-link>
+        <router-link to="/">Hesabım yok</router-link>
       </div>
     </form>
   </main>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Register",
+
+  data() {
+    return {
+      user: {
+        name: "",
+        email: "",
+        password: "",
+      },
+    };
+  },
+
+  methods: {
+    register() {
+      try {
+        axios
+          .post("http://localhost:8000/api/register", this.user)
+          .then((save_response) => {
+            console.log(save_response);
+            this.$router.push("/");
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
 .form-area {
   max-width: 400px !important;
-  margin-top: 200px !important;
+  margin-top: 100px !important;
 }
 </style>
