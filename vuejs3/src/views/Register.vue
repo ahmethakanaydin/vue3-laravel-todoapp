@@ -1,6 +1,9 @@
 <template>
   <main class="form-signin container card mt-5 form-area">
     <form>
+      <div v-if="error" class="alert alert-danger mt-3" role="alert">
+        {{ error }}
+      </div>
       <h1 class="h3 mb-3 fw-normal mt-4">Kayıt Ol</h1>
 
       <div class="form-floating ">
@@ -60,6 +63,7 @@ export default {
         email: "",
         password: "",
       },
+      error: "",
     };
   },
 
@@ -74,6 +78,7 @@ export default {
           });
       } catch (err) {
         console.log(err);
+        this.error = `Bir Hata Oluştu! ${err.message}`;
       }
     },
   },
@@ -83,6 +88,6 @@ export default {
 <style scoped>
 .form-area {
   max-width: 400px !important;
-  margin-top: 100px !important;
+  margin-top: 200px !important;
 }
 </style>

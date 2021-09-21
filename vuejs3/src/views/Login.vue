@@ -1,6 +1,12 @@
 <template>
   <main class="form-signin container card mt-5 form-area">
     <form>
+      <div v-if="error" class="alert alert-danger mt-3" role="alert">
+        {{ error }}
+      </div>
+      <div v-if="success" class="alert alert-success mt-3" role="alert">
+        {{ success }}
+      </div>
       <h1 class="h3 mb-3 fw-normal mt-4">Giriş Yap</h1>
       <div class="form-floating ">
         <input
@@ -47,16 +53,24 @@ export default {
         email: "",
         password: "",
       },
+      error: "",
+      success: "",
     };
   },
   methods: {
     async login() {
-      axios
-        .post("http://localhost:8000/api/login", this.user)
-        .then((save_response) => {
-          console.log(save_response);
-          this.$router.push("/todos");
-        });
+      try {
+        await axios
+          .post("http://localhost:8000/api/login", this.user)
+          .then((save_response) => {
+            console.log(save_response.data.status);
+            this.$router.push("/todos");
+            this.success = "Başarı İle Giriş Yapıldı..";
+          });
+      } catch (err) {
+        console.log(err);
+        this.error = `Bir Hata Oluştu! ${err.message}`;
+      }
     },
   },
 };
@@ -65,7 +79,7 @@ export default {
 <style scoped>
 .form-area {
   max-width: 400px !important;
-  margin-top: 100px !important;
+  margin-top: 200px !important;
 }
 
 .bd-placeholder-img {
