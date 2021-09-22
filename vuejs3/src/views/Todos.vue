@@ -11,8 +11,8 @@
             <div
               v-for="(todo, index) in state.todos"
               :key="index"
-              class="p-8 bg-white shadow-md rounded flex items-center justify-between"
-              :class="{ 'bg-green-200': todo.done }"
+              :class="{ todoDone: todo.done }"
+              class="p-8 bg-white shadow-md rounded d-flex items-center justify-between"
             >
               <div>
                 <div>{{ todo.text }}</div>
@@ -149,3 +149,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.todoDone {
+  background-color: #9ae6b4 !important;
+}
+</style>
